@@ -26,10 +26,8 @@
 \mode<presentation>
 {
   \usetheme{Warsaw}
-  % or ...
-
+%  \useinnertheme{circles}
   \setbeamercovered{transparent}
-  % or whatever (possibly just delete it)
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{page number in head/foot}[totalframenumber]
 }
@@ -40,12 +38,13 @@
 \usepackage[english, russian]{babel}
 % or whatever
 
+\usepackage{tikz}
 
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 
 
-\title[Short Paper Title] % (optional, use only with long paper titles)
+\title % (optional, use only with long paper titles)
 {Алгоритмы классификации данных}
 
 \subtitle
@@ -56,13 +55,13 @@
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 
-\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+\institute[НГУ] % (optional, but mostly needed)
 {
   Группа 23224\\
   Факультет информационных технологий\\
   Новосибирский государственный университет
 }
-\date[Short Occasion] % (optional)
+\date[09.11.2023] % (optional)
 {9 ноября 2023 г.}
 
 \subject{Talks}
@@ -82,7 +81,7 @@
 % the beginning of each subsection:
 \AtBeginSubsection[]
 {
-  \begin{frame}<beamer>{Outline}
+  \begin{frame}<beamer>{Cодержание}
     \tableofcontents[currentsection,currentsubsection]
   \end{frame}
 }
@@ -93,14 +92,13 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-
 \begin{document}
 
 \begin{frame}
   \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
+\begin{frame}{Содержание}
   \tableofcontents
   % You might wish to add the option [pausesections]
 \end{frame}
@@ -118,18 +116,12 @@
 
 \section{Введение}
 
-\subsection[Short First Subsection Name]{First Subsection Name}
+\subsection{Понятие задачи классификации данных}
 
-\begin{frame}{Make Titles Informative. Use Uppercase Letters.}{Subtitles are optional.}
-  % - A title should summarize the slide in an understandable fashion
-  %   for anyone how does not follow everything on the slide itself.
-
-  \begin{itemize}
-    \item
-      Use \texttt{itemize} a lot.
-    \item
-      Use very short sentences or short phrases.
-  \end{itemize}
+\begin{frame}{Определение}
+  \begin{definition} 
+   Классификация данных — разбиение множества объектов или наблюдений на априорно заданные группы, называемые классами, внутри каждой из которых они предполагаются похожими друг на друга, имеющими примерно одинаковые свойства и признаки. 
+  \end{definition}
 \end{frame}
 
 \begin{frame}{Make Titles Informative.}
@@ -164,15 +156,47 @@
 \end{frame}
 
 
-\subsection{Second Subsection}
+\subsection{Примеры}
+\begin{centering}
+  \begin{frame}{Классический пример кластеризации}
+    \begin{tikzpicture}
+      \draw (5,3) ellipse (1 and 2) node[above=60]{Группа 1};
+      \foreach \s in {1,...,5}
+      {
+        \foreach \t in {1,...,5}
+        {
+          \filldraw[red] (4.4 + 1.3 * rnd ,2.1 + 2 * rnd) circle (0.1);
+        }
+      }
+      \node[circle,fill=black, inner sep=0pt, minimum size=5] (e1) at (6,5) {};
+      \node[circle,fill=black, inner sep=0pt, minimum size=5] (e2) at (7,5) {};
+      \node[circle,fill=black, inner sep=0pt, minimum size=5] (e3) at (9,4) {};
+      \node[draw] (A) at (7,3) {Выбросы};
+      \draw[->] (A) -- (e1);
+      \draw[->] (A) -- (e2);
+      \draw[->] (A) -- (e3);
+      \draw (10,3) ellipse (1 and 2) node[above=60]{Группа 2};
+      \foreach \s in {1,...,5}
+      {
+        \foreach \t in {1,...,5}
+        {
+          \filldraw[green] (9.4 + 1.3 * rnd ,2.1 + 2 * rnd) circle (0.1);
+        }
+      }
+    \end{tikzpicture}
+  \end{frame}
+\end{centering}
+
 
 \begin{frame}{Make Titles Informative.}
 \end{frame}
 
+
+\section{Алгоритмы}
+\subsection{Деревья решений}
+
 \begin{frame}{Make Titles Informative.}
 \end{frame}
-
-
 
 \section*{Заключение}
 
@@ -202,6 +226,9 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \titlepage
+\end{frame}
 
 \end{document}
 
