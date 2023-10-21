@@ -1,3 +1,5 @@
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+
 \documentclass{beamer}
 
 % This file is a solution template for:
@@ -8,7 +10,6 @@
 
 \mode<presentation>
 {
-  \setbeamertemplate{bibliography item}{\insertbiblabel} 
   \usetheme{Warsaw}
   \setbeamercovered{transparent}
   \setbeamertemplate{navigation symbols}{}
@@ -18,6 +19,7 @@
   \useinnertheme{circles}
  }
 
+
 \usepackage[utf8]{inputenc}
 % or whatever
 
@@ -25,19 +27,28 @@
 % or whatever
 
 \usepackage{tikz}
-\tikzstyle{process} = [rectangle, draw, text centered, minimum height=2em, align=center]
+\tikzstyle{process} = [rectangle, draw, text centered, minimum height=2em, align=center, fill=blue!20]
 \tikzstyle{connector} = [draw, ->, >=triangle 45]
+\tikzstyle{db} = [cylinder, 
+        shape border rotate=90, 
+        draw,
+        minimum height=2cm,
+        minimum width=2cm,
+        shape aspect=.25, fill=red!20]
 \tikzstyle{2connector} = [draw, <->, >=triangle 45]
-\tikzstyle{terminator} = [rectangle, draw, text centered, rounded corners, minimum height=2em, align=center]
+\tikzstyle{terminator} = [rectangle, draw, text centered, rounded corners, minimum height=2em, align=center, fill=green!20]
 \usetikzlibrary{shapes,shapes.geometric, arrows, arrows.meta}
 
 \usepackage{caption}
 \usepackage{subcaption}
 
-\usepackage[style=verbose,backend=biber]{biblatex}
+\usepackage[citestyle=numeric,style=verbose,backend=biber]{biblatex}
 \addbibresource{ref.bib}
 
 
+\chardef\_=`_
+
+\usepackage{array}
 
 \title % (optional, use only with long paper titles)
 {Алгоритмы классификации данных}
@@ -109,10 +120,6 @@
 % be said about how it should be structured. However, the talk length
 % of between 15min and 45min and the theme suggest that you stick to
 % the following rules:  
-
-% - Exactly two or three sections (other than the summary).
-% - At *most* three subsections per section.
-% - Talk about 30s to 2min per frame. So there should be between about
 %   15 and 30 frames, all told.
 
 \section{Введение}
@@ -120,11 +127,15 @@
 \subsection{Понятие задачи классификации данных}
 
 \begin{frame}{Определение}
-  \begin{definition} 
-    \textbf{Классификация} — это разновидность анализа данных, в процессе которого извлекаются модели, описывающие важные классы данных\footcite{Jiawei2012}.  
-  \end{definition}
+  \begin{block}{Определение} 
+    \textbf{Классификация} — это разновидность анализа данных, в процессе которого извлекаются модели, описывающие важные классы данных\footnotemark. 
+  \end{block}\footcitetext{Jiawei2012}
   \vfill
-  \begin{figure}
+\end{frame}
+
+
+\begin{frame}{Определение}
+\begin{figure}
     \begin{tikzpicture}
       \node [process] at (0,0) (first) {\textbf{Классификаторы}};
       \node [terminator] at (0,-2) (second) {\textbf{Категориальные метки класса}};
@@ -135,10 +146,14 @@
   \end{figure}
 \end{frame}
 
+
+  
+
+
 \begin{frame}{Двухшаговый процесс классификации}
   \textbf{Классификация} состоит из:
   \begin{enumerate}
-    \item Фазы обучения, при котором алгоритм классификации анализирует (или обучается) из тестового набора данных, составленных из пар ``данные — метка класса''.
+    \item Фазы обучения, при котором алгоритм классификации анализирует тестовый набор данных, составленных из пар ``данные — метка класса'' (обучение).
       \pause
     \item Этапа классификации по новым данным. Измеряется точность корректно определенных данных к соответсвующему классу.
   \end{enumerate}
@@ -150,25 +165,12 @@
   \end{block}
 \end{frame}
 
-\subsection{Примеры}
-
-
 \begin{frame}{Процесс классификации}
   \begin{figure}
     \begin{tikzpicture}
-      \node at (0,0) (db1) [cylinder, 
-        shape border rotate=90, 
-        draw,
-        minimum height=2cm,
-        minimum width=2cm,
-        shape aspect=.25,] {Тестовые данные};
+      \node at (0,0) (db1) [db] {Тестовые данные};
       \node at (0,-1.5) (alg) [terminator] {Алгоритм классификации};
-      \node at (0,-4) (db2) [cylinder, 
-        shape border rotate=90, 
-        draw,
-        minimum height=2cm,
-        minimum width=2cm,
-        shape aspect=.25,] {Правила классификации};
+      \node at (0,-3.7) (db2) [db] {Правила классификации};
       \path [connector] (db1) -- (alg);
       \path [connector] (alg) -- (db2);
     \end{tikzpicture}
@@ -179,24 +181,68 @@
 \begin{frame}{Процесс классификации}
   \begin{figure}
     \begin{tikzpicture}
-      \node at (-2,-4) (db1) [cylinder, 
-        shape border rotate=90, 
-        draw,
-        minimum height=2cm,
-        minimum width=2cm,
-        shape aspect=.25,] {Тестовые данные};
+      \node at (-2,-4) (db1) [db] {Тестовые данные};
       \node at (0,0) (alg) [terminator] {Правила классификации};
-      \node at (2,-4) (db2) [cylinder, 
-        shape border rotate=90, 
-        draw,
-        minimum height=2cm,
-        minimum width=2cm,
-        shape aspect=.25,] {Новые данные};
+      \node at (2,-4) (db2) [db] {Новые данные};
       \path [2connector] (db1) -- (alg);
       \path [2connector] (alg) -- (db2);
     \end{tikzpicture}
     \caption{Процесс класификации данных: классификация}
   \end{figure}
+\end{frame}
+
+\subsection{Примеры}
+
+
+
+\begin{frame}{Пример классификации}
+  \begin{table}
+    \setlength\arrayrulewidth{1pt}
+    \rowcolors{1}{gray!20}{white}
+    \begin{tabular}{|c c c c|}
+            \hline
+          \textbf{Имя} & \textbf{Возраст} & \textbf{Доход} & \textbf{Оценка\_кредита} \\ \hline
+            Николай & Пожилой  & Средний   & Разрешен   \\ \hline
+            Елена & Средний  & Высокий   & Разрешен  \\  \hline
+            Костантин & Молодой & Низкий   & Риск   \\\hline
+            Олег & Средний & Средний   & Риск   \\\hline
+            Артемий & Пожилой  & Низкий   & Разрешен   \\\hline
+            Роман & Средний  & Высокий   & Разрешен   \\\hline
+            Кристина & Молодой & Низкий   & Риск   \\
+            \hline
+          \end{tabular}
+    \caption{Тестовые данные}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{Пример классификации}
+  \begin{table}
+    \begin{tabular}{|c|}
+      \hline
+      IF Возраст = Молодой THEN →\\\
+      Оценка\_кредита = Риск \\
+      \hline
+      IF Доход = Высокий THEN →\\
+      Оценка\_кредита = Разрешен \\
+      \hline
+      IF Возраст = Средний AND Доход = Низкий THEN →\\
+      Оценка\_кредита = Риск \\
+      \hline
+      \dots\\
+      \hline
+    \end{tabular}
+    \caption{Правила классификации}
+  \end{table}
+
+\end{frame}
+
+
+\begin{frame}{Пример классификации}
+  \setbeamercovered{}
+  Джон, среднего возраста с низкой зарплатой. Какая классификация будет предложена по выделенным правилам?
+  \uncover<2->{\textbf{Оценка\_кредита = Риск}}
+
 \end{frame}
 
 \section{Базовые алгоритмы}
@@ -246,6 +292,12 @@
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Список источников} 
+  \nocite{*}
+  \printbibliography
+\end{frame}
+
+\begin{frame}{Вопросы к аудитории} 
+
 \end{frame}
 
 \begin{frame}
