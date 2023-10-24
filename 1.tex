@@ -127,7 +127,7 @@
 
 \subsection{Понятие задачи классификации данных}
 
-\begin{frame}{Определение}
+\begin{frame}{Определение задачи классификации}
   \begin{block}{Определение} 
     \textbf{Классификация} — это разновидность анализа данных, в процессе которого извлекаются модели, описывающие важные классы данных\footnotemark. 
   \end{block}\footcitetext{Jiawei2012}
@@ -135,7 +135,7 @@
 \end{frame}
 
 
-\begin{frame}{Определение}
+\begin{frame}{Определение задачи классификации}
 \begin{figure}
     \begin{tikzpicture}
       \node [process] at (0,0) (first) {\textbf{Классификаторы}};
@@ -154,7 +154,7 @@
 \begin{frame}{Двухшаговый процесс классификации}
   \textbf{Классификация} состоит из:
   \begin{enumerate}
-    \item Фазы обучения, при котором алгоритм классификации анализирует тестовый набор данных, составленных из пар ``данные — метка класса'' (обучение).
+    \item Фазы обучения, при котором алгоритм классификации анализирует тестовый набор данных, составленных из пар ``данные — метка класса''. 
       \pause
     \item Этапа классификации по новым данным. Измеряется точность корректно определенных данных к соответсвующему классу.
   \end{enumerate}
@@ -249,7 +249,16 @@
 \section{Базовые алгоритмы}
 \subsection{Деревья решений}
 
-\begin{frame}{Определение деревьев решений}
+\begin{frame}{Определение дерева решений}
+\begin{block}{Определение}
+  \textbf{Дерево решений} — это метод классификации, при котором выполняется иерархическое деление данных в виде дерeва, где конечные узлы представляют собой классы данных\footnotemark.
+\end{block}\footcitetext{Aggarwal2014}
+\end{frame}
+
+
+
+
+\begin{frame}{Пример дерева решений}
 \begin{figure}
     \begin{tikzpicture}
       \node [terminator] at (0,4) (t1) {\textit{Возраст?}};
@@ -260,25 +269,27 @@
       \node [decision] at (0,2) (t5) {Да};
       \node [decision] at (2,0) (t6) {Нет};
       \node [decision] at (4,0) (t7) {Да};
-      \path [connector] (t1) -- (t2);
-      \path [connector] (t1) -- (t8);
-      \path [connector] (t1) -- (t5);
-      \path [connector] (t2) -- (t3);
-      \path [connector] (t2) -- (t4);
-      \path [connector] (t8) -- (t6);
-      \path [connector] (t8) -- (t7);
-      \node[draw=none] at (-2, 3) (action) {Молодой};
-      \node[draw=none] at (0, 3) (action) {Средний};
-      \node[draw=none] at (2, 3) (action) {Пожилой};
-      \node[draw=none] at (-4, 1) (action) {Нет};
-      \node[draw=none] at (-2, 1) (action) {Да};
-      \node[draw=none] at (1, 1) (action) {Посредственная};
-      \node[draw=none] at (4, 1) (action) {Безупречная};
+      \path [connector] (t1) -- (t2) node[midway,above left] {Молодой};
+      \path [connector] (t1) -- (t8) node[midway,above right] {Пожилой};
+      \path [connector] (t1) -- (t5) node[midway,centered] {Средний};
+      \path [connector] (t2) -- (t3) node[midway,left] {Нет};
+      \path [connector] (t2) -- (t4) node[midway,right] {Да};
+      \path [connector] (t8) -- (t6) node[midway,left] {Посредственная};
+      \path [connector] (t8) -- (t7) node[midway,right] {Безупречная};
+
     \end{tikzpicture}
     \caption{Дерево решений}
   \end{figure}
 
 \end{frame}
+
+
+\begin{frame}{Определение дерева решений}
+\begin{equation} 
+  Gini(x_i) = \sum_{y\in Y} {p_{iy}(1-p_{iy})}= 1 - \sum_{y\in Y}{p^{2}_{iy}}
+\end{equation}
+\end{frame}
+
 
 
 \subsection{Байесовы методы классификации}
