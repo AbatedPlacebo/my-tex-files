@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper]{article} 
+\usepackage[utf8]{inputenc}
+ \usepackage[T1]{fontenc} 
+ \usepackage[russian]{babel} 
+\usepackage{geometry} 
+\usepackage{color} 
+\usepackage{hyperref}
+\usepackage{multicol}
+\begin{document}
+
+% Custom commands 
+\newcommand{\name}[1]{\textbf{#1}} 
+\newcommand{\address}[1]{#1\\} 
+\newcommand{\phone}[1]{Телефон: #1\\} 
+\newcommand{\email}[1]{E-mail: #1\\}
+\newcommand{\website}[1]{Сайт: \url{#1}\\} 
+\newcommand{\github}[1]{GitHub: \href{https://github.com/#1}{#1}\\} 
+
+% Color definitions 
+\definecolor{accent}{RGB}{0, 153, 204} 
+\definecolor{emphasis}{RGB}{255, 102, 0}
+
+\pagestyle{empty}
+\thispagestyle{empty}
+
+\begin{center} 
+\vspace*{-2cm} 
+\name{Пиминов Артур Эдуардович} 
+\end{center}
+\address{Новосибирск, Россия}
+\phone{+7 (962) 829-42-23} 
+\email{arthurpiminov@yandex.ru} 
+\website{https://abatedplacebo.github.io} 
+\github{abatedplacebo} 
+\vspace{0.5cm}
+
+\setlength{\columnsep}{1 cm}
+\begin{multicols}{2}[\vskip 1cm]
+\section*{Области интересов} 
+АСУ ТП, EPICS, Qt, программирование микроконтроллеров, разработка десктопных приложений.
+\section*{Образование} \subsection*{Бакалавр информатики и вычислительной техники} Новосибирский государственный технический университет, 2023\\
+\subsection*{Магистр информатики и вычислительной техники} 
+Новосибирсикий национальный исследовательский университет, 2025\\
+\section*{Work Experience} \subsection*{Senior Software Engineer} Company Name, Location \ Employment Dates \ \begin{itemize} \item Brief description of job responsibilities \item Key achievements and projects \end{itemize}
+\subsection*{Junior Software Developer} Company Name, Location \ Employment Dates \ \begin{itemize} \item Brief description of job responsibilities \item Key achievements and projects \end{itemize}
+
+\section*{Skills} \begin{itemize} \item Programming languages (e.g., Python, Java) \item Development frameworks (e.g., Django, React) \item Databases (e.g., MySQL, MongoDB) \item Operating systems (e.g., Windows, Linux) \end{itemize}
+
+\section*{Projects} \begin{itemize} \item Project 1: Brief description \item Project 2: Brief description \end{itemize}
+
+
+\section*{Achievements} 
+\begin{itemize} 
+\item Achievement 1 
+\item Achievement 2 
+\item Achievement 3 
+\end{itemize}
+
+\section*{Publications} 
+
+\begin{itemize} 
+\item Publication 1: Title, Journal Name, Volume, Year 
+\item Publication 2: Title, Journal Name, Volume, Year 
+\end{itemize}
+
+\end{multicols}
+
+\vfill
+
+
+\end{document} 
